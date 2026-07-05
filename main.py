@@ -1,37 +1,32 @@
-# main.py
-
-# Importaciones relativas limpias basadas en una estructura de paquetes válida
-from modelos.producto import Producto
-from modelos.cliente import Cliente
+from modelos.platillo import Platillo
+from modelos.bebida import Bebida
 from servicios.restaurante import Restaurante
 
-def ejecutar_sistema() -> None:
-    # 1. Instanciar el servicio controlador principal
-    mi_establecimiento = Restaurante("Amazonía Gourmet")
+def main():
+    # 1. Instanciar el servicio del restaurante
+    mi_restaurante = Restaurante()
+
+    print("--- Registrando Productos en el Sistema ---")
+    # 2. Crear dos objetos de tipo Platillo y dos de tipo Bebida
+    platillo1 = Platillo("Maito de Pescado", 8.50, "Plato Fuerte")
+    platillo2 = Platillo("Ceviche de Volquetero", 6.00, "Entrada")
     
-    print("--- INICIANDO CARGA DE DATOS ---")
-    
-    # 2. Instanciar objetos concretos de los modelos
-    platillo_1 = Producto("Maito de Pescado", 12.50, True)
-    platillo_2 = Producto("Ceviche de Volquetero", 6.00, True)
-    bebida_1 = Producto("Chicha de Chonta", 1.50, False)  # Producto Agotado
-    
-    usuario_1 = Cliente("1726354819", "Kevin Jiménez", 4)
-    usuario_2 = Cliente("0504123987", "María Andrade", 2)
-    
-    # 3. Registrar los objetos creados dentro de las listas del servicio
-    mi_establecimiento.registrar_producto(platillo_1)
-    mi_establecimiento.registrar_producto(platillo_2)
-    mi_establecimiento.registrar_producto(bebida_1)
-    
-    mi_establecimiento.registrar_cliente(usuario_1)
-    mi_establecimiento.registrar_cliente(usuario_2)
-    
-    # 4. Presentar toda la información estructurada en consola
-    mi_establecimiento.mostrar_informacion_sistema()
+    bebida1 = Bebida("Chicha de Chonta", 1.50, 500)
+    bebida2 = Bebida("Jugo de Guayusa", 1.25, 400)
+
+    # 3. Prueba de validación de precio negativo (Requisito de la guía)
+    print("\n[Prueba de Validación de Encapsulamiento]")
+    platillo1.cambiar_precio(-3.50)  # Mostrará un mensaje de error en consola
+
+    # 4. Agregar los objetos a la lista del servicio
+    print("\n[Guardando Productos]")
+    mi_restaurante.agregar_producto(platillo1)
+    mi_restaurante.agregar_producto(platillo2)
+    mi_restaurante.agregar_producto(bebida1)
+    mi_restaurante.agregar_producto(bebida2)
+
+    # 5. Mostrar los resultados finales (Demostración de Polimorfismo)
+    mi_restaurante.mostrar_restaurante()
 
 if __name__ == "__main__":
-    ejecutar_sistema()
-
-
-   
+    main()
